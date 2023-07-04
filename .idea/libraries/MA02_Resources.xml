@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="MA02_Resources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../ER_Resources/MA02_Resources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../ER_Resources/MA02_Resources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
