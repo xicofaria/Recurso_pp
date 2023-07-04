@@ -1,5 +1,7 @@
 package ma02_resources.participants;
 
+import java.util.Objects;
+
 public class ContactImpl implements Contact {
     private String street;
     private String city;
@@ -17,58 +19,45 @@ public class ContactImpl implements Contact {
         this.phone = phone;
     }
 
-    @Override
     public String getStreet() {
         return street;
     }
 
-    @Override
     public String getCity() {
         return city;
     }
 
-    @Override
     public String getState() {
         return state;
     }
 
-    @Override
     public String getZipCode() {
         return zipCode;
     }
 
-    @Override
     public String getCountry() {
         return country;
     }
 
-    @Override
     public String getPhone() {
         return phone;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        ContactImpl contact = (ContactImpl) obj;
-        return street.equals(contact.street) &&
-                city.equals(contact.city) &&
-                state.equals(contact.state) &&
-                zipCode.equals(contact.zipCode) &&
-                country.equals(contact.country) &&
-                phone.equals(contact.phone);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactImpl contact = (ContactImpl) o;
+        return Objects.equals(street, contact.street) &&
+                Objects.equals(city, contact.city) &&
+                Objects.equals(state, contact.state) &&
+                Objects.equals(zipCode, contact.zipCode) &&
+                Objects.equals(country, contact.country) &&
+                Objects.equals(phone, contact.phone);
     }
 
     @Override
     public int hashCode() {
-        int result = street.hashCode();
-        result = 31 * result + city.hashCode();
-        result = 31 * result + state.hashCode();
-        result = 31 * result + zipCode.hashCode();
-        result = 31 * result + country.hashCode();
-        result = 31 * result + phone.hashCode();
-        return result;
+        return Objects.hash(street, city, state, zipCode, country, phone);
     }
 }
-

@@ -12,23 +12,23 @@ public class PartnerImpl extends ParticipantImpl implements Partner {
         this.website = website;
     }
 
+    @Override
     public String getVat() {
         return vat;
     }
 
+    @Override
     public String getWebsite() {
         return website;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass```java
-                ()) return false;
-        if (!super.equals(o)) return false;
-        PartnerImpl that = (PartnerImpl) o;
-        return Objects.equals(vat, that.vat) &&
-                Objects.equals(website, that.website);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
+        PartnerImpl partner = (PartnerImpl) obj;
+        return vat.equals(partner.vat) && website.equals(partner.website);
     }
 
     @Override
