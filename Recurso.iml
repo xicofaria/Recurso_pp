@@ -19,4 +19,10 @@
     <orderEntry type="library" name="gson-2.10.1" level="project" />
     <orderEntry type="library" name="MA02_Resources" level="project" />
   </component>
+  <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+  </dependency>
+
 </module>

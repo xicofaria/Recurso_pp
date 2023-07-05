@@ -1,23 +1,28 @@
 package ma02_resources.project;
 
 import ma02_resources.participants.Participant;
+import ma02_resources.participants.Student;
+import ma02_resources.participants.Partner;
+import ma02_resources.participants.Facilitator;
 import ma02_resources.project.exceptions.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ProjectImpl implements Project {
     private String name;
     private String description;
     private List<Participant> participants;
     private List<Task> tasks;
+    private Set<String> tags;
+
 
     public ProjectImpl(String name, String description) {
         this.name = name;
         this.description = description;
         this.participants = new ArrayList<>();
         this.tasks = new ArrayList<>();
+        this.tags = new HashSet<>();
+
     }
 
     @Override
@@ -37,20 +42,17 @@ public class ProjectImpl implements Project {
 
     @Override
     public int getNumberOfStudents() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return (int) participants.stream().filter(p -> p instanceof Student).count();
     }
 
     @Override
     public int getNumberOfPartners() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return (int) participants.stream().filter(p -> p instanceof Partner).count();
     }
 
     @Override
     public int getNumberOfFacilitators() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return (int) participants.stream().filter(p -> p instanceof Facilitator).count();
     }
 
     @Override
@@ -60,85 +62,94 @@ public class ProjectImpl implements Project {
 
     @Override
     public int getMaximumNumberOfTasks() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return tasks.size();
     }
 
     @Override
     public long getMaximumNumberOfParticipants() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return participants.size();
     }
 
     @Override
     public int getMaximumNumberOfStudents() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return getNumberOfStudents();
     }
 
     @Override
     public int getMaximumNumberOfPartners() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return getNumberOfPartners();
     }
 
     @Override
     public int getMaximumNumberOfFacilitators() {
-        // TODO: Implement this method according to your requirements
-        return 0;
+        return getNumberOfFacilitators();
     }
 
     @Override
-    public void addParticipant(Participant participant) throws IllegalNumberOfParticipantType, ParticipantAlreadyInProject {
-        // TODO: Implement this method according to your requirements
+    public void addParticipant(Participant participant) throws ParticipantAlreadyInProject {
+        if (participants.contains(participant)) {
+            throw new ParticipantAlreadyInProject("Participant already in project");
+        }
+        participants.add(participant);
     }
+
+
 
     @Override
     public Participant removeParticipant(String email) {
-        // TODO: Implement this method according to your requirements
-        return null;
+        Participant participantToRemove = getParticipant(email);
+        if (participantToRemove != null) {
+            participants.remove(participantToRemove);
+        }
+        return participantToRemove;
     }
 
     @Override
     public Participant getParticipant(String email) {
-        // TODO: Implement this method according to your requirements
-        return null;
+        return participants.stream().filter(p -> p.getEmail().equals(email)).findFirst().orElse(null);
     }
 
     @Override
     public String[] getTags() {
-        // TODO: Implement this method according to your requirements
-        return new String[0];
+        return tags.toArray(new String[0]);
     }
 
     @Override
     public boolean hasTag(String tag) {
-        // TODO: Implement this method according to your requirements
-        return false;
+        return tags.contains(tag);
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
     }
 
     @Override
     public void addTask(Task task) throws IllegalNumberOfTasks, TaskAlreadyInProject {
-        // TODO: Implement this method according to your requirements
+        if (tasks.contains(task)) {
+            throw new TaskAlreadyInProject("Task already in project");
+        }
+        tasks.add(task);
     }
 
     @Override
     public Task getTask(String title) {
-        // TODO: Implement this method according to your requirements
-        return null;
+        return tasks.stream().filter(t -> t.getTitle().equals(title)).findFirst().orElse(null);
     }
 
     @Override
     public Task[] getTasks() {
-        // TODO: Implement this method according to your requirements
-        return new Task[0];
+        return tasks.toArray(new Task[0]);
     }
 
     @Override
     public boolean isCompleted() {
-        // TODO: Implement this method according to your requirements
         return false;
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -148,11 +159,12 @@ public class ProjectImpl implements Project {
         return name.equals(project.name) &&
                 description.equals(project.description) &&
                 participants.equals(project.participants) &&
-                tasks.equals(project.tasks);
+                tasks.equals(project.tasks) &&
+                tags.equals(project.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, participants, tasks);
+        return Objects.hash(name, description, participants, tasks, tags);
     }
 }
