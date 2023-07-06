@@ -12,6 +12,7 @@ public class TaskImpl implements Task {
     private String title;
     private String description;
     private List<Submission> submissions;
+    private int maximumNumberOfSubmissions;
 
     public TaskImpl(LocalDate start, int duration, String title, String description) {
         this.start = start;
@@ -20,6 +21,7 @@ public class TaskImpl implements Task {
         this.description = description;
         this.end = start.plusDays(duration);
         this.submissions = new ArrayList<>();
+        this.maximumNumberOfSubmissions = maximumNumberOfSubmissions;
     }
 
     @Override
@@ -88,5 +90,10 @@ public class TaskImpl implements Task {
     @Override
     public int compareTo(Task o) {
         return this.start.compareTo(o.getStart());
+    }
+    // adicionado
+    @Override
+    public int getMaximumNumberOfSubmissions() {
+        return maximumNumberOfSubmissions;
     }
 }

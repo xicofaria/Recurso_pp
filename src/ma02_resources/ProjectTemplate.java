@@ -36,8 +36,9 @@ public class ProjectTemplate {
         return jsonObject;
     }
 
-    public List<Task> createTasks(JSONObject jsonObject) {
+    public List<Task> createTasks() {
         List<Task> tasks = new ArrayList<>();
+        JSONObject jsonObject = readJson();
         JSONArray tasksArray = (JSONArray) jsonObject.get("tasks");
 
         for (Object taskObj : tasksArray) {

@@ -16,6 +16,7 @@ public class ProjectImpl implements Project {
     private Set<String> tags;
 
 
+
     public ProjectImpl(String name, String description) {
         this.name = name;
         this.description = description;
@@ -145,6 +146,11 @@ public class ProjectImpl implements Project {
         return tasks.toArray(new Task[0]);
     }
 
+    // new metodo
+    @Override
+    public Participant[] getParticipants() {
+        return participants.toArray(new Participant[0]);
+    }
     @Override
     public boolean isCompleted() {
         return false;

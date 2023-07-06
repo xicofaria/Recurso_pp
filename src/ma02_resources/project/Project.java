@@ -55,4 +55,6 @@ public interface Project {
     boolean isCompleted();
 
     boolean equals(Object var1);
+    //criação de metodo
+    Participant[] getParticipants();
 }

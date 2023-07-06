@@ -21,6 +21,7 @@ public class SubmissionImpl implements Submission {
         return date;
     }
 
+
     @Override
     public Student getStudent() {
         return student;

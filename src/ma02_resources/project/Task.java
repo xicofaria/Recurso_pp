@@ -29,4 +29,7 @@ public interface Task extends Cloneable, Comparable<Task> {
     boolean equals(Object var1);
 
     int compareTo(Task var1);
+
+    // adicionada
+    int getMaximumNumberOfSubmissions();
 }
