@@ -155,6 +155,14 @@ public class ProjectImpl implements Project {
     public boolean isCompleted() {
         return false;
     }
+    // new
+    @Override
+    public void removeTask(String title) {
+        Task taskToRemove = getTask(title);
+        if (taskToRemove != null) {
+            tasks.remove(taskToRemove);
+        }
+    }
 
 
     @Override

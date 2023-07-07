@@ -1,6 +1,7 @@
 package ma02_resources;
 
 import ma02_resources.participants.*;
+import ma02_resources.participants.StudentEvaluation;
 import ma02_resources.project.*;
 
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class CBLManager {
 
     public Edition getEdition(String editionName) {
         return editions.stream().filter(edition -> edition.getName().equals(editionName)).findFirst().orElse(null);
+    }
+    public List<Edition> getEditions() {
+        return editions;
     }
 
     public void setActiveEdition(Edition edition) {
@@ -109,38 +113,74 @@ public class CBLManager {
     }
 
     public void assignSelfEvaluation(Student student, double grade) {
-        // Implemente a lógica para atribuir notas de autoavaliação aos estudantes
+        StudentEvaluation evaluation = new StudentEvaluation(student);
+        evaluation.setSelfEvaluation(grade);
+        student.addEvaluation(evaluation);
     }
 
     public void assignPeerEvaluation(Student student, double grade) {
-        // Implemente a lógica para atribuir notas de heteroavaliação aos estudantes
+        StudentEvaluation evaluation = new StudentEvaluation(student);
+        evaluation.setPeerEvaluation(grade);
+        student.addEvaluation(evaluation);
     }
 
     public double generateFinalEvaluation(Student student) {
-        // Implemente a lógica para calcular a avaliação final do estudante com base nas notas atribuídas
-        return 0.0;
+        return student.getFinalEvaluation();
     }
 
     public void exportDataCSV() {
-        // Implemente a lógica para exportar dados no formato CSV
+        // Exemplo: Exportar os dados da edição ativa para um arquivo CSV
+        if (activeEdition != null) {
+            CSVExporter.exportEditionData(activeEdition, "active_edition_data.csv");
+        }
+    }
+
+    public void exportDataJSON() {
+        // Exemplo: Exportar os dados da edição ativa para um arquivo JSON
+        if (activeEdition != null) {
+            JSONExporter.exportEditionData(activeEdition, "active_edition_data.json");
+        }
     }
 
     public int getNumberOfEditions() {
         return editions.size();
     }
 
-    public void exportDataJSON() {
-        // Implemente a lógica para exportar dados no formato JSON
-    }
+
 
     public String getEditionProgress(Edition edition) {
-        // Implemente a lógica para gerar uma representação textual do progresso da edição
-        return "";
+        StringBuilder progress = new StringBuilder();
+        progress.append("Edition: ").append(edition.getName()).append("\n");
+
+        for (Project project : edition.getProjects()) {
+            progress.append("Project: ").append(project.getName()).append("\n");
+            progress.append(getProjectProgress(project));
+        }
+
+        return progress.toString();
     }
 
     public String getProjectProgress(Project project) {
-        // Implemente a lógica para gerar uma representação textual do progresso do projeto
-        return "";
+        StringBuilder progress = new StringBuilder();
+
+        for (Task task : project.getTasks()) {
+            progress.append("Task: ").append(task.getTitle()).append("\n");
+            progress.append("Submissions: ").append(task.getNumberOfSubmissions()).append(" / ").append(task.getMaximumNumberOfSubmissions()).append("\n");
+        }
+
+        return progress.toString();
+    }
+
+    public Participant getParticipant(String email) {
+        for (Edition edition : editions) {
+            for (Project project : edition.getProjects()) {
+                Participant participant = project.getParticipant(email);
+                if (participant != null) {
+                    return participant;
+                }
+            }
+        }
+        return null;
     }
 
     /**

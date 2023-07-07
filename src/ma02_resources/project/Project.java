@@ -51,7 +51,8 @@ public interface Project {
     Task getTask(String var1);
 
     Task[] getTasks();
-
+    //new
+    void removeTask(String title);
     boolean isCompleted();
 
     boolean equals(Object var1);

@@ -18,6 +18,7 @@ public interface Edition {
 
     Status getStatus();
 
+
     void setStatus(Status var1);
 
     void addProject(String var1, String var2, String[] var3) throws IOException, ParseException;
