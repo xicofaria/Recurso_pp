@@ -81,9 +81,11 @@ public class EditionImpl implements Edition {
 
     @Override
     public Project[] getProjectsOf(String name) {
-        // TODO: Implement this method according to your requirements
-        return new Project[0];
+        return projects.stream()
+                .filter(project -> project.getName().contains(name))
+                .toArray(Project[]::new);
     }
+
 
     @Override
     public int getNumberOfProjects() {
@@ -92,9 +94,10 @@ public class EditionImpl implements Edition {
 
     @Override
     public LocalDate getEnd() {
-        // TODO: Implement this method according to your requirements
-        return null;
+        // Supondo que a duração da edição seja de 30 dias
+        return start.plusDays(30);
     }
+
 
 
 
