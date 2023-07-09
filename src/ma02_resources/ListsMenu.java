@@ -33,7 +33,7 @@ public class ListsMenu {
             switch (option) {
                 case 1:
                     System.out.println("Digite o nome da edição:");
-                    String editionName = scanner.next();
+                    String editionName = scanner.nextLine();
                     Edition edition = cblManager.getEdition(editionName);
                     if (edition != null) {
                         Participant[] students = cblManager.getStudentsInEdition(edition);
@@ -45,9 +45,10 @@ public class ListsMenu {
                     }
                     break;
 
+
                 case 2:
                     System.out.println("Digite o nome da edição:");
-                    String editionNameForSubmissions = scanner.next();
+                    String editionNameForSubmissions = scanner.nextLine();
                     System.out.println("Digite o número mínimo de submissões:");
                     int n = scanner.nextInt();
                     Edition editionForSubmissions = cblManager.getEdition(editionNameForSubmissions);
@@ -63,7 +64,7 @@ public class ListsMenu {
 
                 case 3:
                     System.out.println("Digite o nome da edição:");
-                    String editionNameForCompletion = scanner.next();
+                    String editionNameForCompletion = scanner.nextLine();
                     Edition editionForCompletion = cblManager.getEdition(editionNameForCompletion);
                     if (editionForCompletion != null) {
                         Project[] completedProjects = cblManager.getCompletedProjectsInEdition(editionForCompletion);

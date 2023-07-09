@@ -39,12 +39,13 @@ public class EditionMenu {
             System.out.println("0. Voltar");
 
             int option = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
 
             switch (option) {
                 case 1:
                     // Adicionar edição
                     System.out.println("Digite o nome da edição:");
-                    String editionName = scanner.next();
+                    String editionName = scanner.nextLine();
                     Edition newEdition = new EditionImpl(editionName, LocalDate.now(), "Project Template", Status.INACTIVE);
                     cblManager.addEdition(newEdition);
                     System.out.println("Edição adicionada com sucesso.");
@@ -53,7 +54,7 @@ public class EditionMenu {
                 case 2:
                     // Remover edição
                     System.out.println("Digite o nome da edição a ser removida:");
-                    String editionToRemove = scanner.next();
+                    String editionToRemove = scanner.nextLine();
                     cblManager.removeEdition(editionToRemove);
                     System.out.println("Edição removida com sucesso.");
                     break;
@@ -185,6 +186,5 @@ public class EditionMenu {
                     System.out.println("Opção inválida.");
             }
         }
-        scanner.close();
     }
 }

@@ -18,12 +18,32 @@ public class StudentMenu {
     public StudentMenu(CBLManager cblManager) {
         this.cblManager = cblManager;
     }
+    private String studentEmail; // Adicione esta linha para armazenar o e-mail do estudante
+    private String studentName; // Adicione esta linha para armazenar o e-mail do estudante
+    private String editionName; // Adicione esta linha para armazenar o nome da edição
+    private String projectName; // Adicione esta linha para armazenar o nome do projeto
 
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+    // Adicione este método para definir o nome da edição
+    public void setEditionName(String editionName) {
+        this.editionName = editionName;
+    }
+
+    // Adicione este método para definir o nome do projeto
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
     public void showMenu() {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
         while (!exit) {
+            System.out.println("Bem vindo " + studentName);
             System.out.println("Menu Estudante:");
             System.out.println("1. Adicionar submissão");
             System.out.println("2. Listar tarefa");
@@ -44,12 +64,10 @@ public class StudentMenu {
                         System.out.println("Esta edição não está ativa, você não pode adicionar submissões");
                         break;
                     }
-                    System.out.println("Digite o nome do projeto ao qual a submissão será adicionada:");
-                    String projectNameForSubmission = scanner.nextLine();
+                    String projectNameForSubmission = this.projectName;
                     System.out.println("Digite o título da tarefa à qual a submissão será adicionada:");
                     String taskTitleForSubmission = scanner.nextLine();
-                    System.out.println("Digite o e-mail do estudante que está fazendo a submissão:");
-                    String studentEmailForSubmission = scanner.nextLine();
+                    String studentEmailForSubmission = this.studentEmail;
                     System.out.println("Digite o texto da submissão:");
                     String submissionText = scanner.nextLine();
 
@@ -125,7 +143,7 @@ public class StudentMenu {
                     break;
                 case 6:
                     System.out.println("Digite o e-mail do estudante para atribuir autoavaliação:");
-                    String studentEmailForSelfEvaluation = scanner.next();
+                    String studentEmailForSelfEvaluation = scanner.nextLine();
                     System.out.println("Digite a nota de autoavaliação:");
                     double selfEvaluationGrade = scanner.nextDouble();
 

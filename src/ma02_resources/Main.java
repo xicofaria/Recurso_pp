@@ -1,6 +1,6 @@
 package ma02_resources;
 
-import ma02_resources.participants.*;
+import ma02_resources.participants.Student;
 import ma02_resources.project.*;
 import ma02_resources.project.exceptions.IllegalNumberOfParticipantType;
 import ma02_resources.project.exceptions.IllegalNumberOfTasks;
@@ -19,14 +19,24 @@ public class Main {
         CBLManager cblManager = new CBLManager();
 
         // Crie uma instância da classe ProjectTemplate com o caminho do arquivo JSON
-        ProjectTemplate projectTemplate = new ProjectTemplate("/run/media/xicosec/Stuff/PP/Recurso/Recurso/src/ma02_resources/project_template.json");
+        ProjectTemplate projectTemplate = new ProjectTemplate("/run/media/xicosec/Stuff/PP/Recurso/Recurso/src/ma02_resources/resources/project_template.json");
 
         // Leia o arquivo JSON e crie uma lista de tarefas
         List<Task> tasks = projectTemplate.createTasks();
 
-        // Crie uma nova edição e adicione-a ao CBLManager
-        Edition edition = new EditionImpl("Edition Name", LocalDate.now(), "Project Template", Status.ACTIVE);
-        cblManager.addEdition(edition);
+        // Verifique a existência da classe InitialTestingValues e instancie-a se existir
+        try {
+            Class.forName("ma02_resources.InitialTestingValues");
+            InitialTestingValues initialTestingValues = new InitialTestingValues();
+            Edition edition = initialTestingValues.getEdition();
+            cblManager.addEdition(edition);
+
+            // Aqui você pode usar os métodos de initialTestingValues conforme necessário
+        } catch (ClassNotFoundException e) {
+            System.out.println("A classe InitialTestingValues não foi encontrada.");
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro ao instanciar a classe InitialTestingValues: " + e.getMessage());
+        }
 
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
@@ -44,6 +54,7 @@ public class Main {
             System.out.println("0. Sair");
 
             int option = scanner.nextInt();
+            scanner.nextLine();  // consumir o caractere de nova linha restante
 
             switch (option) {
                 case 1:
@@ -52,6 +63,24 @@ public class Main {
                     break;
                 case 2:
                     // Mostrar o menu do estudante
+                    // Solicitar informações antes de mostrar o menu do estudante
+                    System.out.println("Digite o e-mail do estudante:");
+                    String studentEmail = scanner.nextLine();
+                    System.out.println("Digite o nome do estudante:");
+                    String studentName = scanner.nextLine();
+                    System.out.println("Digite o nome da edição:");
+                    String editionName = scanner.nextLine();
+                    System.out.println("Digite o nome do projeto:");
+                    String projectName = scanner.nextLine();
+
+                    // informações para o menu do estudante
+                    studentMenu.setStudentEmail(studentEmail);
+                    studentMenu.setStudentName(studentName);
+                    studentMenu.setEditionName(editionName);
+                    studentMenu.setProjectName(projectName);
+
+                    // Mostrar o menu do estudante
+
                     studentMenu.showMenu();
                     break;
                 case 3:

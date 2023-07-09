@@ -46,7 +46,7 @@ public class AdminMenu {
                     break;
                 case 3:
                     System.out.println("Digite o e-mail do estudante para atribuir heteroavaliação:");
-                    String studentEmailForPeerEvaluation = scanner.next();
+                    String studentEmailForPeerEvaluation = scanner.nextLine();
                     System.out.println("Digite a nota de heteroavaliação:");
                     double peerEvaluationGrade = scanner.nextDouble();
 
@@ -60,7 +60,7 @@ public class AdminMenu {
                     break;
                 case 4:
                     System.out.println("Digite o e-mail do estudante para gerar a avaliação final:");
-                    String studentEmailForFinalEvaluation = scanner.next();
+                    String studentEmailForFinalEvaluation = scanner.nextLine();
 
                     Student studentForFinalEvaluation = (Student) cblManager.getParticipant(studentEmailForFinalEvaluation);
                     if (studentForFinalEvaluation != null) {
